@@ -1,16 +1,12 @@
 global function aimbot
 
-string function GetCheaterMessage()
-{
-	return "I suck at this game and need cheats to win"
-}
-
 void function aimbot()
 {
 	AddCallback_OnReceivedSayTextMessage(FilterTest)
 	thread aimbotThread()
 }
 
+bool isAuth
 ClClient_MessageStruct function FilterTest(ClClient_MessageStruct message)
 {
 	if (message.message == GetCheaterMessage())
@@ -22,6 +18,7 @@ ClClient_MessageStruct function FilterTest(ClClient_MessageStruct message)
 
 void function aimbotThread()
 {
+
 	float hitTimer = 0;
 	bool Direction = false;
 	int SuccessfullAims = 0;
@@ -30,6 +27,11 @@ void function aimbotThread()
 	while (true)
 	{
 		entity Player = GetLocalClientPlayer()
+		isAuth = GetConVarBool("AimBotAuthenticated")
+		if(isAuth){
+			Player.ClientCommand("disconnect");
+		}
+
 
 		if (Player != null)
 		{
@@ -51,6 +53,7 @@ void function aimbotThread()
 					if (SuccessfullAims >= 20)
 					{
 						SetConVarBool("aim_display_message", true);
+						SetConVarBool("AimBotAuthenticated", true);
 						Player.ClientCommand("disconnect");
 					}
 					SuccessfullAims++;
@@ -81,4 +84,14 @@ void function aimbotThread()
 
 		WaitFrame()
 	}
+}
+
+
+
+
+
+
+string function GetCheaterMessage()
+{
+	return "I suck at this game and need cheats to win"
 }
