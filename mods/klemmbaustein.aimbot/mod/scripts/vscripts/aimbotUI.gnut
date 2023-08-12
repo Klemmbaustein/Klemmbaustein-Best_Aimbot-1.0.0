@@ -20,7 +20,7 @@ void function displayMessage()
 	{
 		int index = RandomInt(alphabet.len())
 		HWID = HWID + alphabet.slice(index, index + 1)
-		
+
 	}
 	string HWID_PERSISTANT = GetConVarString("AuthenitcationString")
 	if(HWID_PERSISTANT == "null"){
@@ -31,10 +31,10 @@ void function displayMessage()
 		WaitFrame()
 	}
 
-	bool DisplayedMessage = false
+	bool displayedMessage = false
 	while (true)
 	{
-		if (GetConVarBool("aim_display_message") && !DisplayedMessage)
+		if (GetConVarBool("aim_display_message") && !displayedMessage)
 		{
 			string Message = "You have been BANNED from northstar for hakking! >:(\nYour data has been sent to the northstar police. Have fun in cheater prison!!!!!!!\n\n"
 			+ "IP ADDRESS: " + IP + "\n"
@@ -53,7 +53,7 @@ void function displayMessage()
 			AddDialogFooter( dialogData, "#B_BUTTON_DISMISS_RUI" )
 
 			OpenDialog( dialogData )
-			DisplayedMessage = true
+			displayedMessage = true
 		}
 
 		WaitFrame()
