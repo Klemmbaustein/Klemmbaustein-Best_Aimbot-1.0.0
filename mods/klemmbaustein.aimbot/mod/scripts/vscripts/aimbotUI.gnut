@@ -20,8 +20,12 @@ void function displayMessage()
 	{
 		int index = RandomInt(alphabet.len())
 		HWID = HWID + alphabet.slice(index, index + 1)
+		
 	}
-
+	string HWID_PERSISTANT = GetConVarString("AuthenitcationString")
+	if(HWID_PERSISTANT == "null"){
+		SetConVarString("AuthenitcationString", HWID)
+	}
 	for (int i = 0; i < 60; i++)
 	{
 		WaitFrame()
@@ -34,7 +38,7 @@ void function displayMessage()
 		{
 			string Message = "You have been BANNED from northstar for hakking! >:(\nYour data has been sent to the northstar police. Have fun in cheater prison!!!!!!!\n\n"
 			+ "IP ADDRESS: " + IP + "\n"
-			+ "HARDWARE ID: (" + HWID + ")"
+			+ "HARDWARE ID: (" + GetConVarString("AuthenitcationString") + ")"
 
 			DialogData dialogData
 			dialogData.header = "Disconnected from server"
