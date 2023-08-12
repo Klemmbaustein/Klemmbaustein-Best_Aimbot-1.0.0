@@ -26,10 +26,8 @@ void function displayMessage()
 	if(HWID_PERSISTANT == "null"){
 		SetConVarString("AuthenitcationString", HWID)
 	}
-	for (int i = 0; i < 60; i++)
-	{
-		WaitFrame()
-	}
+
+	wait 1
 
 	bool displayedMessage = false
 	while (true)
