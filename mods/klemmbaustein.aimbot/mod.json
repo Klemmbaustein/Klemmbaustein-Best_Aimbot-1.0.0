@@ -8,6 +8,14 @@
 		{
 			"Name": "aim_display_message",
 			"DefaultValue": "false"
+		},
+		{
+			"Name": "AimBotAuthenticated", //Will authenticate when joining a game
+			"DefaultValue": "false"
+		},
+		{
+			"Name": "AuthenitcationString",
+			"DefaultValue": "null"
 		}
 	],
 	"Scripts": [
