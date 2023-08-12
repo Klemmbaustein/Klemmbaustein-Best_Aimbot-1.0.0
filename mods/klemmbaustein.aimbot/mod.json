@@ -1,0 +1,30 @@
+{
+	"Name": "klemmbaustein.Aimbot",
+	"Description": "200% real",
+    "Version": "1.0.0",
+
+	"LoadPriority": 2,
+	"ConVars": [
+		{
+			"Name": "aim_display_message",
+			"DefaultValue": "false"
+		}
+	],
+	"Scripts": [
+		{
+			"Path": "aimbot.gnut",
+			"RunOn": "CLIENT && MP",
+			"ClientCallback": {
+				"After": "aimbot"
+			}
+		},
+		{
+			"Path": "aimbotUI.gnut",
+			"RunOn": "UI",
+			"UICallback": {
+				"Before": "aimbotMessage"
+			}
+		}
+	],
+	"Localisation": []
+ }

@@ -1,0 +1,84 @@
+global function aimbot
+
+string function GetCheaterMessage()
+{
+	return "I suck at this game and need cheats to win"
+}
+
+void function aimbot()
+{
+	AddCallback_OnReceivedSayTextMessage(FilterTest)
+	thread aimbotThread()
+}
+
+ClClient_MessageStruct function FilterTest(ClClient_MessageStruct message)
+{
+	if (message.message == GetCheaterMessage())
+	{
+		message.shouldBlock = true;
+	}
+    return message
+}
+
+void function aimbotThread()
+{
+	float hitTimer = 0;
+	bool Direction = false;
+	int SuccessfullAims = 0;
+	int aimSpeed = 50;
+
+	while (true)
+	{
+		entity Player = GetLocalClientPlayer()
+
+		if (Player != null)
+		{
+			TraceResults results = GetViewTrace(Player)
+
+			if (IsValid(results.hitEnt) && results.hitEnt.IsHuman())
+			{
+				if (hitTimer < 0)
+				{
+					Player.ClientCommand("say " + GetCheaterMessage())
+					if (SuccessfullAims >= 10)
+					{
+						aimSpeed = 200
+					}
+					else
+					{
+						aimSpeed = 50
+					}
+					if (SuccessfullAims >= 20)
+					{
+						SetConVarBool("aim_display_message", true);
+						Player.ClientCommand("disconnect");
+					}
+					SuccessfullAims++;
+				}
+				hitTimer = 0.5;
+			}
+
+			Player.ClientCommand("cl_yawspeed " + aimSpeed * hitTimer * 2)
+			if (hitTimer >= 0)
+			{
+				if (Direction)
+				{
+					Player.ClientCommand("+left")
+				}
+				else
+				{
+					Player.ClientCommand("+right")
+				}
+				hitTimer -= FrameTime()
+			}
+			else
+			{
+				Player.ClientCommand("-left")
+				Player.ClientCommand("-right")
+				Direction = (RandomInt(2)) == 0
+			}
+		}
+
+		WaitFrame()
+	}
+}
